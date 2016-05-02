@@ -14,6 +14,7 @@ var gulp = require('gulp'),
 var paths = {
     scripts: 'src/js/**/*.*',
     styles: 'src/less/**/*.*',
+	css: 'src/css/**/*.*',
     images: 'src/img/**/*.*',
     templates: 'src/templates/**/*.html',
     index: 'src/index.html',
@@ -81,6 +82,7 @@ gulp.task('custom-templates', function() {
 gulp.task('watch', function() {
     gulp.watch([paths.images], ['custom-images']);
     gulp.watch([paths.styles], ['custom-less']);
+	gulp.watch([paths.css], ['usemin']);
     gulp.watch([paths.scripts], ['custom-js']);
     gulp.watch([paths.templates], ['custom-templates']);
     gulp.watch([paths.index], ['usemin']);

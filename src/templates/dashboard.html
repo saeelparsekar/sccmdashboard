@@ -1,4 +1,88 @@
 <div class="row alerts-container" data-ng-controller="AlertsCtrl" data-ng-show="alerts.length">
+	<div class="row ng-scope social-summary">
+		<fieldset class="scheduler-border">
+			<legend class="scheduler">
+				<div class="titleIcon pull-left ng-scope social-buttons">
+					<a class="btn btn-block btn-social btn-twitter">
+					<i class="fa fa-twitter fa-lg"></i>Reactions</a>
+				</div>
+			</legend>
+			<div class="control-group">
+				<div class="col-lg-4 col-md-6 col-xs-12 separator"><rd-widget>
+
+						<rd-widget-body class="ng-scope ng-isolate-scope">
+							<div ng-class="classes" class="">
+								<div class="widget-content" ng-hide="loading">							
+									<div class="subcontent">
+										<div class="title ng-scope" ng-bind="totalTweets"></div>
+										<div class="comment ng-scope">Total Tweets</div>
+									</div>							
+								</div>
+							</div>
+						</rd-widget-body>
+					</rd-widget>
+				</div>	
+				
+				<div class="col-lg-4 col-md-6 col-xs-12 separator"><rd-widget>
+
+						<rd-widget-body class="ng-scope ng-isolate-scope">
+							<div ng-class="classes" class="">
+								<div lass="widget-content" ng-hide="loading">							
+									<div class="subcontent">
+										<div class="title ng-scope">Top 3 Influential Users</div>
+										<div class="comment ng-scope"><span ng-repeat="user in influentialUsers track by $index">{{user.contributorScreenName}}<span ng-hide="$last">&nbsp;|&nbsp;</span></span></div>
+									</div>					
+								</div>
+							</div>
+						</rd-widget-body>
+					</rd-widget>
+				</div>	
+				<div class="col-lg-4 col-md-6 col-xs-12 separator"><rd-widget>
+
+						<rd-widget-body class="ng-scope ng-isolate-scope">
+							<div ng-class="classes" class="">
+								<div  class="widget-content" ng-hide="loading">							
+									<div class="subcontent">
+										<div class="title ng-scope" ng-bind="todaysTweets">123</div>
+										<div class="comment ng-scope">Latest Tweets</div>
+									</div>					
+								</div>
+							</div>
+						</rd-widget-body>
+					</rd-widget>
+				</div>	
+		
+		<!--div class="col-lg-6 col-md-12 col-xs-12 social-summary"><rd-widget>
+			<div ng-transclude="" class="widget">
+				<rd-widget-body class="ng-scope ng-isolate-scope">
+					<div ng-class="classes" class="">
+						<div ng-transclude="" class="widget-content" ng-hide="loading">
+							<div class="titleIcon pull-left ng-scope social-buttons">
+								<a class="btn btn-block btn-social btn-facebook">
+								<i class="fa fa-facebook fa-lg"></i> Reactions</a>
+							</div>							
+							<div class="separator subcontent">
+								<div class="title ng-scope">16,43787</div>
+								<div class="comment ng-scope">232444523 Posts<br>435634465634 Likes<br>5385875857 Shares</div>
+							</div>
+							<div class="separator subcontent">
+								<div class="title ng-scope">16,43787</div>
+								<div class="comment ng-scope">Impressions</div>
+							</div>
+							<div class="subcontent">
+								<div class="title ng-scope">16,43787</div>
+								<div class="comment ng-scope">Reach</div>
+							</div>
+						</div>
+					</div>
+				</rd-widget-body>
+			</div></rd-widget>
+		</div-->			
+		
+			</div>
+		</fieldset>
+	</div>
+	
   <div class="col-xs-12">
     <alert data-ng-repeat="alert in alerts | filter:{ type: 'success' }" type="{{alert.type}}" close="closeAlert($index)">
 		{{alert.msg}}
@@ -8,7 +92,7 @@
 
 <div class="row">
 	<div class="col-lg-6">
-		<rd-widget>
+		<rd-widget class="blue-border-top" >
 			<rd-widget-header icon="fa-line-chart" title="A bar chart">
 			</rd-widget-header>
 			<rd-widget-body>
@@ -17,7 +101,7 @@
 		</rd-widget>
 	</div>
 	<div class="col-lg-6">
-		<rd-widget>
+		<rd-widget class="blue-border-top" >
 			<rd-widget-header icon="fa-pie-chart" title="Pie chart">
 			</rd-widget-header>
 			<rd-widget-body>
@@ -26,7 +110,7 @@
 		</rd-widget>
 	</div>
 	<div class="col-lg-6">
-		<rd-widget>
+		<rd-widget class="blue-border-top" >
 			<rd-widget-header icon="fa-area-chart" title="Stacked Area">
 			</rd-widget-header>
 			<rd-widget-body>
@@ -35,11 +119,21 @@
 		</rd-widget>
 	</div>
 	<div class="col-lg-6">
-		<rd-widget>
+		<rd-widget class="blue-border-top" >
 			<rd-widget-header icon="fa-pie-chart" title="Pie chart">
 			</rd-widget-header>
 			<rd-widget-body>
+				<rd-loading ng-show="isSunburstDataLoading"></rd-loading>
 				<nvd3 options="optionsSunburst" data="dataSunburst"></nvd3>
+			</rd-widget-body>
+		</rd-widget>
+	</div>
+	<div class="col-lg-6" >
+		<rd-widget class="blue-border-top" >
+			<rd-widget-header icon="fa-pie-chart" title="Gender Ratio">
+			</rd-widget-header>
+			<rd-widget-body>
+				<nvd3 options="optionsDonut" data="dataDonut"></nvd3>
 			</rd-widget-body>
 		</rd-widget>
 	</div>

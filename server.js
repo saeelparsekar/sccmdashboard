@@ -38,7 +38,6 @@ dbObject.collection('socialfact').aggregate([
 	 dataset.push({"value" :doc['count']});
     }
   
-
    var response = {
 	  "type" : "Campaign",
       "total_campaign" : c,
@@ -48,8 +47,6 @@ dbObject.collection('socialfact').aggregate([
 	//console.log(dataset);
     responseObj.json(response);   
   });
-
-
 
 }
 
@@ -135,33 +132,64 @@ dbObject.collection('socialfact').aggregate([
     responseObj.json(response);
   });
 }
- 
- 
+
+function getGenderRatio(responseObj) {
+dbObject.collection('socialfact').aggregate([
+  {$project: {
+    male: {$cond: [{$eq: ["$gender", "M"]}, 1, 0]},
+    female: {$cond: [{$eq: ["$gender", "F"]}, 1, 0]}
+  }},
+  {$group: { _id: null, male: {$sum: "$male"},
+                        female: {$sum: "$female"}
+  }},
+]).toArray(function(err, docs){
+    	
+	if ( err ) throw err;
+
+	for ( index in docs){
+		
+      var doc = docs[index];
+     
+    }
+    var dataset = [
+      {
+        "key" : "Male",
+        "y" : doc['male']
+      },
+      {
+        "key" : "Females",
+        "y": doc['female']
+      }
+    ];
+
+    var response = dataset;
+    responseObj.json(response);
+  });
+}
+
+function getTotalTweets(responseObj) {
+  
+  dbObject.collection('socialdata').count(function(err, count){
+	 responseObj.json({ totalTweets: count}); 
+  });    
+  
+}
+
+function getTodaysTweets(responseObj) {
+		dbObject.collection('socialfact').find(
+		{"post_time": {"$gte":  new Date('2016-04-21T00:00:00.000Z')}}).toArray(function(err, docs){
+			responseObj.json({ 'todaysTweetsCount': docs.length}); 
+		});
+  
+}
+function getMostInfluentialTweet(responseObj) {
+	dbObject.collection('socialdata').find().sort({followerCount: -1}).limit(3).toArray(function(err, docs){
+		responseObj.json({ 'influentialUsers': docs}); 
+	});
+}
+
 function getGenderLocation(responseObj) {
-/*dbObject.collection('socialdata').aggregate([
-    { "$group": {
-        "_id": {
-            
-            "gender": "$gender",
-			"location": "$dataPlace",
-        },
-        "totalCount": { "$sum": 1 }
-    }},
-    { "$group": {
-        "_id": "$_id.gender",
-        "Genders": { 
-            "$push": { 
-                "gender": "$_id.location",
-                "count": "$totalCount",
-               
-            },
-        },
-        "count": { "$sum": "$totalCount" }
-    }},
-    
-    
-    { "$sort": { "count": -1 } },
-])*/dbObject.collection('socialdata').aggregate([
+dbObject.collection('socialdata').aggregate([
     { "$group": {
         "_id": {
             "location": "$dataPlace",
@@ -243,6 +271,14 @@ app.get("/getGender", function(req, res){
   getGender(res); 
 });
 
+
+app.get("/getGenderRatio", function(req, res){
+	res.setHeader("Access-Control-Allow-Origin", "*");
+  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');  
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  getGenderRatio(res); 
+});
+
 app.get("/getLoc", function(req, res){
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');  
@@ -264,6 +300,28 @@ app.get("/getCampaign", function(req, res){
   res.header('Access-Control-Allow-Headers', 'Content-Type');
   getCampaign(res); 
 });
+
+app.get("/getTotalTweets", function(req, res){
+	res.setHeader("Access-Control-Allow-Origin", "*");
+  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');  
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  getTotalTweets(res); 
+});
+app.get("/getTodaysTweets", function(req, res){
+	res.setHeader("Access-Control-Allow-Origin", "*");
+  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');  
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  getTodaysTweets(res); 
+});
+
+app.get("/getMostInfluentialTweet", function(req, res){
+	res.setHeader("Access-Control-Allow-Origin", "*");
+  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');  
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  getMostInfluentialTweet(res); 
+
+});
+
 app.listen("3300", function(){
   console.log('Server up: http://localhost:3300');
 });
