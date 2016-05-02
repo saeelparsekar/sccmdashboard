@@ -37,11 +37,34 @@ function MasterCtrl($scope, $cookieStore,$http) {
         $scope.$apply();
     };
 
-	
-	 $http.get("http://10.244.46.53:3300/getGenderLocation")
+	$http.get("http://10.244.46.53:3300/getTotalTweets")
+        .then(function(results){console.log(results.data.totalTweets);
+			 $scope.totalTweets = results.data.totalTweets;
+	}, function(results){
+            //error
+            console.log("Error: " + results.data + "; "
+                                  + results.status);
+        });
+
+	/* $http.get("http://10.244.46.53:3300/getGenderLocation")
         .then(function(results){
 		 $scope.dataSunburst = [results.data];
 	
+		}, function(results){
+            //error
+            console.log("Error: " + results.data + "; "
+                                  + results.status);
+        });
+
+		}, function(results){
+            //error
+            console.log("Error: " + results.data + "; "
+                                  + results.status);
+        });
+	*/
+	$http.get("http://10.244.46.53:3300/getTodaysTweets")
+        .then(function(results){
+			 $scope.todaysTweets = results.data.todaysTweetsCount;
 		}, function(results){
             //error
             console.log("Error: " + results.data + "; "
@@ -58,6 +81,7 @@ function MasterCtrl($scope, $cookieStore,$http) {
                                   + results.status);
         });
 
+
 		
 	$http.get("http://10.244.46.53:3300/getStackeddata")
         .then(function(results){
@@ -67,6 +91,17 @@ function MasterCtrl($scope, $cookieStore,$http) {
             console.log("Error: " + results.data + "; "
                                   + results.status);
         });
+		
+	$http.get("http://10.244.46.53:3300/getMostInfluentialTweet")
+        .then(function(results){console.log(results.data);
+			$scope.influentialUsers = results.data.influentialUsers;
+
+		}, function(results){
+            //error
+            console.log("Error: " + results.data + "; "
+                                  + results.status);
+        });
+
 	
 	$http.get("http://10.244.46.53:3300/getBardata")
         .then(function(results){			
@@ -76,8 +111,30 @@ function MasterCtrl($scope, $cookieStore,$http) {
             console.log("Error: " + results.data + "; "
                                   + results.status);
         });
-	
-	
+
+	 $http.get("http://10.244.46.53:3300/getGenderRatio")
+        .then(function(results){console.log(results.data);
+			 $scope.dataDonut = results.data;	
+		}, function(results){
+            //error
+            console.log("Error: " + results.data + "; "
+                                  + results.status);
+        });
+	 $scope.isSunburstDataLoading = true;
+	 $http.get("http://10.244.46.53:3300/getGenderLocation")
+        .then(function(results){
+			$scope.isSunburstDataLoading = false;
+			 $scope.dataSunburst = [
+				results.data
+			];	
+
+		}, function(results){
+            //error
+            console.log("Error: " + results.data + "; "
+                                  + results.status);
+        });
+
+
     // Bar chart
     $scope.optionsBar = {
         chart: {
@@ -105,20 +162,6 @@ function MasterCtrl($scope, $cookieStore,$http) {
             }
         }
     };
-
-   /* $scope.dataBar = [{
-        key: "Cumulative Return",
-        values: [
-            { "label" : "A" , "value" : -29.765957771107 },
-            { "label" : "B" , "value" : 0 },
-            { "label" : "C" , "value" : 32.807804682612 },
-            { "label" : "D" , "value" : 196.45946739256 },
-            { "label" : "E" , "value" : 0.19434030906893 },
-            { "label" : "F" , "value" : -98.079782601442 },
-            { "label" : "G" , "value" : -13.925743130903 },
-            { "label" : "H" , "value" : -5.1387322875705 }
-        ]
-    }];*/
 
 
     // Pie charts
@@ -214,9 +257,38 @@ function MasterCtrl($scope, $cookieStore,$http) {
             transitionDuration: 250
         }
     };
+	
+	 $scope.optionsDonut = {
+            chart: {
+                type: 'pieChart',
+                height: 450,
+                donut: true,
+                x: function(d){return d.key;},
+                y: function(d){return d.y;},
+                showLabels: true,
+
+                
+                duration: 500,
+                legend: {
+                    margin: {
+                        top: 5,
+                        right: 70,
+                        bottom: 5,
+                        left: 0
+                    }
+                }
+            }
+        };
+
  
 }
 
+
+
+	
+	
+	
+	
 
 
 

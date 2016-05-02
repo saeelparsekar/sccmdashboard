@@ -15,6 +15,7 @@
   <link rel="stylesheet" type="text/css" href="components/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="components/rdash-ui/dist/css/rdash.min.css">
   <link rel="stylesheet" type="text/css" href="components/nvd3/build/nv.d3.css">
+   <link rel="stylesheet" type="text/css" href="css/styles.css">
   <!-- endbuild -->
   <!-- SCRIPTS -->
   <!-- build:js lib/js/main.min.js -->
@@ -41,7 +42,7 @@
       <ul class="sidebar">
         <li class="sidebar-main">
           <a ng-click="toggleSidebar()">
-            Dashboard
+            <div class="twtLogo">SCCM</div>
             <span class="menu-icon glyphicon glyphicon-transfer"></span>
           </a>
         </li>
@@ -80,19 +81,9 @@
         <!-- Main Content -->
         <div ui-view></div>
         <div id="wordcount" style="display:none">{{skills}}</div> 
-         <div class="col-lg-6">
-		<rd-widget>
-			<rd-widget-header icon="fa-pie-chart" title="Word Cloud">
-			</rd-widget-header>
-			<rd-widget-body>
-                
-                <input id="filter" type="text" placeholder="type here to filter.." />
-                
-                <div id="cloud"></div>
-			</rd-widget-body>
-		</rd-widget>
-	</div>
-      
+
+		
+     
       </div><!-- End Page Content -->
     </div><!-- End Content Wrapper -->
   </div><!-- End Page Wrapper -->
@@ -115,7 +106,6 @@
         // draw initial cloud wilthout filters
                 
            document.getElementById('filter').addEventListener('keyup', function() {
-            alert('jdhdh');
                generateSkillCloud();
             });
            
