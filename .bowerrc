@@ -1,3 +1,5 @@
 {
-  "directory" : "src/components"
+  "directory" : "src/components",
+     "http-proxy" : "http://saeel_parsekar:SSP*2191@goaproxy.persistent.co.in:8080/",
+  "https-proxy" : "http://saeel_parsekar:SSP*2191@goaproxy.persistent.co.in:8080/"
 }

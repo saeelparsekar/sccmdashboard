@@ -53,3 +53,5 @@ Icon
 
 # Publish to gh-pages
 .publish
+
+.bowerrc
