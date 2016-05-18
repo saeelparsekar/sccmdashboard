@@ -71,7 +71,7 @@ function MasterCtrl($scope, $cookieStore,$http) {
                                   + results.status);
         });
 	
-     $http.get("http://10.244.46.53:3300/getWords")
+    /* $http.get("http://10.244.46.53:3300/getWords")
         .then(function(results){
 		$scope.skills = results.data;
 
@@ -80,17 +80,61 @@ function MasterCtrl($scope, $cookieStore,$http) {
             console.log("Error: " + results.data + "; "
                                   + results.status);
         });
-
-
+	*/
+	
 		
-	$http.get("http://10.244.46.53:3300/getStackeddata")
+	$http.get("http://10.244.46.53:3300/getCount")
+        .then(function(results){
+			$scope.cloudData= results.data;
+			$scope.filterData = results.data;
+   
+             $scope.flag = true;
+
+	},function(error){
+	
+	console.log("ERROR"+error);
+	$scope.flag=false;
+	
+	
+	}); 
+	
+	//filters data 
+	    $scope.cloudFilter = function(text){     
+        console.log(text);
+		var dataStore =[];
+       if(text == null){
+         $scope.filterData = $scope.cloudData;
+        return filterData;   
+       }
+       else{
+
+       var str;
+        for(i=0;i<$scope.cloudData.length;i++){
+           str = $scope.cloudData[i].text;
+            if(str) {
+               if(str.indexOf(text) !=-1){
+				dataStore.push($scope.cloudData[i]);
+           
+               }
+            }
+       }
+         
+  $scope.filterData = dataStore;
+      
+   }
+   };
+   // end
+	
+	
+		
+	/*$http.get("http://10.244.46.53:3300/getStackeddata")
         .then(function(results){
 		$scope.dataStackedArea = results.data;
 		}, function(results){
             //error
             console.log("Error: " + results.data + "; "
                                   + results.status);
-        });
+        });*/
 		
 	$http.get("http://10.244.46.53:3300/getMostInfluentialTweet")
         .then(function(results){console.log(results.data);
@@ -150,14 +194,14 @@ function MasterCtrl($scope, $cookieStore,$http) {
             y: function(d){ return d.value; },
             showValues: true,
             valueFormat: function(d){
-                return d3.format(',.4f')(d);
+                return d3.format("")(d);
             },
             transitionDuration: 500,
             xAxis: {
-                axisLabel: 'X Axis'
+                axisLabel: 'Countries'
             },
             yAxis: {
-                axisLabel: 'Y Axis',
+                axisLabel: 'Tweet Count',
                 axisLabelDistance: 30
             }
         }
