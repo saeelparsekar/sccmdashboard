@@ -37,7 +37,7 @@ function MasterCtrl($scope, $cookieStore,$http,$q) {
         $scope.$apply();
     };
 
-	var totalTweets = $http.get("http://10.244.46.53:3300/getTotalTweets")
+	var totalTweets = $http.get("http://10.51.234.148:3300/getTotalTweets")
         .then(function(results){console.log(results.data.totalTweets);
 			 $scope.totalTweets = results.data.totalTweets;
 	}, function(results){
@@ -46,7 +46,7 @@ function MasterCtrl($scope, $cookieStore,$http,$q) {
                                   + results.status);
         });
 
-	/* $http.get("http://10.244.46.53:3300/getGenderLocation")
+	/* $http.get("http://10.51.234.148:3300/getGenderLocation")
         .then(function(results){
 		 $scope.dataSunburst = [results.data];
 	
@@ -62,7 +62,7 @@ function MasterCtrl($scope, $cookieStore,$http,$q) {
                                   + results.status);
         });
 	*/
-	var todaysTweets = $http.get("http://10.244.46.53:3300/getTodaysTweets")
+	var todaysTweets = $http.get("http://10.51.234.148:3300/getTodaysTweets")
         .then(function(results){
 			 $scope.todaysTweets = results.data.todaysTweetsCount;
 		}, function(results){
@@ -71,7 +71,7 @@ function MasterCtrl($scope, $cookieStore,$http,$q) {
                                   + results.status);
         });
 	
-    /* $http.get("http://10.244.46.53:3300/getWords")
+    /* $http.get("http://10.51.234.148:3300/getWords")
         .then(function(results){
 		$scope.skills = results.data;
 
@@ -83,7 +83,7 @@ function MasterCtrl($scope, $cookieStore,$http,$q) {
 	*/
 	
 		
-	var getCount = $http.get("http://10.244.46.53:3300/getCount")
+	var getCount = $http.get("http://10.51.234.148:3300/getCount")
         .then(function(results){
 			$scope.cloudData= results.data;
 			$scope.filterData = results.data;
@@ -127,7 +127,7 @@ function MasterCtrl($scope, $cookieStore,$http,$q) {
 	
 	
 		
-	/*$http.get("http://10.244.46.53:3300/getStackeddata")
+	/*$http.get("http://10.51.234.148:3300/getStackeddata")
         .then(function(results){
 		$scope.dataStackedArea = results.data;
 		}, function(results){
@@ -136,7 +136,7 @@ function MasterCtrl($scope, $cookieStore,$http,$q) {
                                   + results.status);
         });*/
 		
-	var influentialTweet = $http.get("http://10.244.46.53:3300/getMostInfluentialTweet")
+	var influentialTweet = $http.get("http://10.51.234.148:3300/getMostInfluentialTweet")
         .then(function(results){console.log(results.data);
 			$scope.influentialUsers = results.data.influentialUsers;
 
@@ -147,7 +147,7 @@ function MasterCtrl($scope, $cookieStore,$http,$q) {
         });
 
 	
-	var getBarData = $http.get("http://10.244.46.53:3300/getBardata")
+	var getBarData = $http.get("http://10.51.234.148:3300/getBardata")
         .then(function(results){			
 		$scope.dataBar = results.data;
 		}, function(results){
@@ -156,7 +156,7 @@ function MasterCtrl($scope, $cookieStore,$http,$q) {
                                   + results.status);
         });
 
-	 var getGenderRation = $http.get("http://10.244.46.53:3300/getGenderRatio")
+	 var getGenderRation = $http.get("http://10.51.234.148:3300/getGenderRatio")
         .then(function(results){console.log(results.data);
 			 $scope.dataDonut = results.data;	
 		}, function(results){
@@ -165,7 +165,7 @@ function MasterCtrl($scope, $cookieStore,$http,$q) {
                                   + results.status);
         });
 	 $scope.isSunburstDataLoading = true;
-	 var getGenderLocation = $http.get("http://10.244.46.53:3300/getGenderLocation")
+	 var getGenderLocation = $http.get("http://10.51.234.148:3300/getGenderLocation")
         .then(function(results){
 			$scope.isSunburstDataLoading = false;
 			 $scope.dataSunburst = [
