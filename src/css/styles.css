@@ -11,6 +11,7 @@ body{
 .blue-border-top, .blue-border-top .widget{
 	border-top: 3px solid #00c0ef;
 	border-radius: 3px;
+	min-width: 550px;
 }
 .social-summary .widget .widget-body {
     padding: 10px;
@@ -87,3 +88,4 @@ fieldset .control-group{
     display: inline-block;
     padding-left: 32px;
 }
+

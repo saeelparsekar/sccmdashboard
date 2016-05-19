@@ -3,9 +3,9 @@
  */
 
 angular.module('RDash')
-    .controller('MasterCtrl', ['$scope', '$cookieStore','$http', MasterCtrl]);
+    .controller('MasterCtrl', ['$scope', '$cookieStore','$http','$q', MasterCtrl]);
 
-function MasterCtrl($scope, $cookieStore,$http) {
+function MasterCtrl($scope, $cookieStore,$http,$q) {
     /**
      * Sidebar Toggle & Cookie Control
      */
@@ -37,7 +37,7 @@ function MasterCtrl($scope, $cookieStore,$http) {
         $scope.$apply();
     };
 
-	$http.get("http://10.244.46.53:3300/getTotalTweets")
+	var totalTweets = $http.get("http://10.244.46.53:3300/getTotalTweets")
         .then(function(results){console.log(results.data.totalTweets);
 			 $scope.totalTweets = results.data.totalTweets;
 	}, function(results){
@@ -62,7 +62,7 @@ function MasterCtrl($scope, $cookieStore,$http) {
                                   + results.status);
         });
 	*/
-	$http.get("http://10.244.46.53:3300/getTodaysTweets")
+	var todaysTweets = $http.get("http://10.244.46.53:3300/getTodaysTweets")
         .then(function(results){
 			 $scope.todaysTweets = results.data.todaysTweetsCount;
 		}, function(results){
@@ -83,7 +83,7 @@ function MasterCtrl($scope, $cookieStore,$http) {
 	*/
 	
 		
-	$http.get("http://10.244.46.53:3300/getCount")
+	var getCount = $http.get("http://10.244.46.53:3300/getCount")
         .then(function(results){
 			$scope.cloudData= results.data;
 			$scope.filterData = results.data;
@@ -136,7 +136,7 @@ function MasterCtrl($scope, $cookieStore,$http) {
                                   + results.status);
         });*/
 		
-	$http.get("http://10.244.46.53:3300/getMostInfluentialTweet")
+	var influentialTweet = $http.get("http://10.244.46.53:3300/getMostInfluentialTweet")
         .then(function(results){console.log(results.data);
 			$scope.influentialUsers = results.data.influentialUsers;
 
@@ -147,7 +147,7 @@ function MasterCtrl($scope, $cookieStore,$http) {
         });
 
 	
-	$http.get("http://10.244.46.53:3300/getBardata")
+	var getBarData = $http.get("http://10.244.46.53:3300/getBardata")
         .then(function(results){			
 		$scope.dataBar = results.data;
 		}, function(results){
@@ -156,7 +156,7 @@ function MasterCtrl($scope, $cookieStore,$http) {
                                   + results.status);
         });
 
-	 $http.get("http://10.244.46.53:3300/getGenderRatio")
+	 var getGenderRation = $http.get("http://10.244.46.53:3300/getGenderRatio")
         .then(function(results){console.log(results.data);
 			 $scope.dataDonut = results.data;	
 		}, function(results){
@@ -165,7 +165,7 @@ function MasterCtrl($scope, $cookieStore,$http) {
                                   + results.status);
         });
 	 $scope.isSunburstDataLoading = true;
-	 $http.get("http://10.244.46.53:3300/getGenderLocation")
+	 var getGenderLocation = $http.get("http://10.244.46.53:3300/getGenderLocation")
         .then(function(results){
 			$scope.isSunburstDataLoading = false;
 			 $scope.dataSunburst = [
@@ -178,7 +178,7 @@ function MasterCtrl($scope, $cookieStore,$http) {
                                   + results.status);
         });
 
-
+	
     // Bar chart
     $scope.optionsBar = {
         chart: {

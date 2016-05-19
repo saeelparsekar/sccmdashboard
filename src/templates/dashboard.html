@@ -120,19 +120,7 @@
 			</rd-widget-body>
 		</rd-widget>
 	</div-->
-	<div class="col-lg-6">
-
-		<rd-widget class="blue-border-top" >
-			<rd-widget-header icon="fa-pie-chart" title="Sunburst Chart">
-
-			</rd-widget-header>
-			<rd-widget-body>
-				<rd-loading ng-show="isSunburstDataLoading"></rd-loading>
-				<nvd3 options="optionsSunburst" data="dataSunburst"></nvd3>
-			</rd-widget-body>
-		</rd-widget>
-	</div>
-
+	
 	<div class="col-lg-6" >
 		<rd-widget class="blue-border-top" >
 			<rd-widget-header icon="fa-pie-chart" title="Gender Ratio">
@@ -168,6 +156,18 @@
 		</rd-widget>
 	</div>
 	
-	
+	<div class="col-lg-6">
+
+		<rd-widget class="blue-border-top" >
+			<rd-widget-header icon="fa-pie-chart" title="Sunburst Chart">
+
+			</rd-widget-header>
+			<rd-widget-body>
+				<rd-loading ng-show="isSunburstDataLoading"></rd-loading>
+				<nvd3 options="optionsSunburst" data="dataSunburst"></nvd3>
+			</rd-widget-body>
+		</rd-widget>
+	</div>
+
 </div>
 
